@@ -61,5 +61,42 @@ public class JobTest {
 
         Assert.assertNotEquals("false", Job1, Job2);
     }
+   @Test
+    public void testToStringStartsAndEndsWithNewLine() {
+        Job testJob = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+    assertTrue(testJob.toString().endsWith("\n"));
+       assertTrue(testJob.toString().startsWith("\n"));
+  }
 
+    @Test
+    public void testToStringContainsCorrectLabelsAndData() {
+        Job testJob = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        String output = String.format("\nID:"+testJob.getId()+"\n"+
+                                        "Name:"+testJob.getName()+"\n"+
+                                         "Employer:"+testJob.getEmployer()+"\n"+
+                        "Location:"+testJob.getLocation()+"\n"+
+                        "Position Type:"+testJob.getPositionType()+"\n"+
+                        "Core Competency:"+testJob.getCoreCompetency()+"\n"
+                );
+        assertEquals(output,testJob.toString());
+
+        //System.out.println(testJob.toString());
+
+        //assertEquals(lines.length, 1);
+
+
+    }
+
+    @Test
+    public void testToStringHandlesEmptyField() {
+        Job testJob = new Job("Product tester", new Employer(""), new Location("Desert"), new PositionType(""), new CoreCompetency("Persistence"));
+        String output = String.format("\nID:"+testJob.getId()+"\n"+
+                "Name:"+testJob.getName()+"\n"+
+                "Employer:"+"Data not available"+"\n"+
+                "Location:"+testJob.getLocation()+"\n"+
+                "Position Type:"+"Data not available"+"\n"+
+                "Core Competency:"+testJob.getCoreCompetency()+"\n"
+        );
+        assertEquals(output,testJob.toString());
+    }
 }
